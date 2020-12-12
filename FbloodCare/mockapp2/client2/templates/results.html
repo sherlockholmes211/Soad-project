@@ -1,0 +1,20 @@
+<h2>Details of the blood banks which have {{blood_group}} storage in the {{city}} city of {{state}} state</h2>
+
+<table class="zui-table">
+    <thead>
+        <tr>
+            <th>Blood Bank name</th>
+            <th>quantity</th>
+            <th>Blood Group</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in data %}
+        <tr>
+        <td>{{ item.bank_name }}</td>
+        <td>{{ item.quatity }}</td>
+        <td>{{ item.blood_group }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    </table>

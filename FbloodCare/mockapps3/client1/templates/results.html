@@ -1,0 +1,28 @@
+<h2>Details Of Blood Banks in {{city}} city of {{state}} state</h2>
+
+<table class="zui-table">
+    <thead>
+        <tr>
+            <th>Blood bank</th>
+            <th>parental_hospital_name</th>
+            <th>category</th>
+            <th>License_no</th>
+            <th>city</th>
+            <th>state</th>
+            <th>address</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in data %}
+        <tr>
+        <td>{{ item.name }}</td>
+        <td>{{ item.parental_hospital_name }}</td>
+        <td>{{ item.category }}</td>
+        <td>{{ item.phone_number }}</td>
+        <td>{{ item.License_no }}</td>
+        <td>{{ item.phone_number }}</td>
+        <td>{{ item.address }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    </table>

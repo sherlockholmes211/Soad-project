@@ -1,0 +1,26 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Near by donors</title>
+</head>
+<body>
+    <div>
+        <form method = "POST">
+            {% csrf_token %}
+            <div>
+                <label for="location">Enter Your city</label>
+                <input type="text" name="city" id="city">
+            </div>
+            <div>
+                <label for="typeOfSchool">Enter Your State</label>
+                <input type="text" name="state" id="state">
+            </div>
+            <div>
+                <input type="submit">
+            </div>
+            
+        </form>
+    </div>
+</body>
+</html>

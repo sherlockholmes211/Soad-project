@@ -1,0 +1,28 @@
+<h2>Details Of donors in {{city}} city of {{state}} state</h2>
+
+<table class="zui-table">
+    <thead>
+        <tr>
+            <th>username</th>
+            <th>blood_group</th>
+            <th>Age</th>
+            <th>phone_number</th>
+            <th>city</th>
+            <th>state</th>
+            <th>address</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in data %}
+        <tr>
+        <td>{{ item.username }}</td>
+        <td>{{ item.blood_group }}</td>
+        <td>{{ item.Age }}</td>
+        <td>{{ item.phone_number }}</td>
+        <td>{{ item.city }}</td>
+        <td>{{ item.state }}</td>
+        <td>{{ item.address }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    </table>
