@@ -1,0 +1,206 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Near By Blood Banks API
+  description: >-
+    An API that allows to obtain existing  near by blood banks and post info of
+    new blood bank
+  termsOfService: 'https://bloodcare.com/terms-of-use-hosted/'
+  contact:
+    name: blood care
+    url: bloodcare.com
+    email: bloodcare@gmail.com
+  license:
+    name: Bloodcare License
+    url: 'http://Bloodcare.com'
+externalDocs:
+  description: Find out more about Swagger
+  url: 'http://swagger.io'
+servers:
+  - description: SwaggerHub API Auto Mocking
+    url: 'https://virtserver.swaggerhub.com/bloodCare/Blood_Bank_API_OAS3.0/1.0.0'
+  - description: SwaggerHub API Auto Mocking
+    url: 'https://virtserver.swaggerhub.com/bloodCare/Donors_API_OAS3.0/1.0.0'
+  - url: 'http://dev.foo.com'
+    description: Dev Server
+  - url: 'http://prod.foo.com'
+    description: Production Server
+tags:
+  - name: bloodbanks
+    description: Details about Near by Blood bank
+    externalDocs:
+      description: Find out more
+      url: 'http://swagger.io'
+paths:
+  /bloodbanks:
+    get:
+      tags:
+        - bloodbanks
+      description: To get near by blood bank details
+      parameters:
+        - name: city
+          in: query
+          required: true
+          description: city of the required blood banks
+          schema:
+            type: string
+            example: kakinada
+        - name: state
+          in: query
+          required: true
+          description: state of the required blood banks
+          schema:
+            type: string
+            example: andhra pradesh
+      responses:
+        '200':
+          description: Successful pull of near by blood banks
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/bloodbanks'
+    post:
+      tags:
+        - bloodbanks
+      description: Add a new blood bank to the database
+      requestBody:
+        description: blood bank object that needs to be added to the database
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/bloodbanks'
+      responses:
+        '200':
+          description: Successful post
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bloodbanks'
+        '405':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Please provide correct input
+  '/bloodbanks/{id}':
+    get:
+      tags:
+        - bloodbanks
+      description: To get deatils of a particular blood bank
+      parameters:
+        - name: id
+          in: path
+          description: get a particular blood bank details by id.
+          required: true
+          schema:
+            type: string
+            example: 1
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/bloodbanks'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bloodbanks'
+        '400':
+          description: Invalid id supplied
+          content: {}
+        '404':
+          description: id not found
+          content: {}
+    put:
+      tags:
+        - bloodbanks
+      description: To update details of a blood bank by id
+      parameters:
+        - name: id
+          in: path
+          description: id of the blood bank that need to be updated
+          required: true
+          schema:
+            type: string
+            example: 1
+      requestBody:
+        description: successfully updated details of blood bank  with given id
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/bloodbanks'
+        required: true
+      responses:
+        '200':
+          description: Successful updated details of the blood bank
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bloodbanks'
+        '400':
+          description: Invalid id supplied
+          content: {}
+        '404':
+          description: id not found with given username
+          content: {}
+    delete:
+      tags:
+        - bloodbanks
+      description: To delete details of a blood bank by id
+      parameters:
+        - name: id
+          in: path
+          description: id of the blood bank whose deatils need to be deleted
+          required: true
+          schema:
+            type: string
+            example: 1
+      responses:
+        '200':
+          description: Deleted the details of the blood bank with given id
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: >-
+                      successfully deleted details of the blood bank from the
+                      database
+        '400':
+          description: Invalid id supplied
+          content: {}
+        '404':
+          description: id not found
+          content: {}
+components:
+  schemas:
+    bloodbanks:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        Name:
+          type: string
+          example: uday blood bank
+        parental hospital:
+          type: string
+          example: Apollo
+        contact number:
+          type: number
+          example: 9542582763
+        city:
+          type: string
+          example: kakinada
+        state:
+          type: string
+          example: andhra pradesh

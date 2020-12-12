@@ -1,0 +1,223 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Near By Donors API
+  description: >-
+    An API that allows to obtain existing information near by donors and post
+    info of new donors
+  termsOfService: 'https://bloodcare.com/terms-of-use-hosted/'
+  contact:
+    name: blood care
+    url: bloodcare.com
+    email: bloodcare@gmail.com
+  license:
+    name: Bloodcare License
+    url: 'http://Bloodcare.com'
+externalDocs:
+  description: Find out more about Swagger
+  url: 'http://swagger.io'
+servers:
+  - description: SwaggerHub API Auto Mocking
+    url: 'https://virtserver.swaggerhub.com/bloodCare/Donors_API_OAS3.0/1.0.0'
+  - url: 'http://dev.foo.com'
+    description: Dev Server
+  - url: 'http://prod.foo.com'
+    description: Production Server
+tags:
+  - name: donors
+    description: Details about Near by interested donors
+    externalDocs:
+      description: Find out more
+      url: 'http://swagger.io'
+paths:
+  /donors:
+    get:
+      tags:
+        - donors
+      description: To get near by donor details
+      parameters:
+        - name: city
+          in: query
+          required: true
+          description: city of the required donors
+          schema:
+            type: string
+            example: kakinada
+        - name: state
+          in: query
+          required: true
+          description: state of the required donors
+          schema:
+            type: string
+            example: andhra pradesh
+      responses:
+        '200':
+          description: Successful pull of near by donors deatils
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/donors'
+    post:
+      tags:
+        - donors
+      description: Add a new interested donor by providing deatails of the donor
+      requestBody:
+        description: donor object that needs to be added to the database
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/donors'
+      responses:
+        '200':
+          description: Successful post
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/donors2'
+        '405':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Please provide correct input
+  '/donors/{username}':
+    get:
+      tags:
+        - donors
+      description: get a particular donor details by username.
+      parameters:
+        - name: username
+          in: path
+          description: username of the donor
+          required: true
+          schema:
+            type: string
+            example: PNBnag007
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/donors2'
+        '400':
+          description: Invalid username supplied
+          content: {}
+        '404':
+          description: User not found
+          content: {}
+    put:
+      tags:
+        - donors
+      description: To update details of a donor by username
+      parameters:
+        - name: username
+          in: path
+          description: username of the donor that need to be updated
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Updated donor object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/donors2'
+        required: true
+      responses:
+        '400':
+          description: Invalid username supplied
+          content: {}
+        '404':
+          description: User not found with given username
+          content: {}
+    delete:
+      tags:
+        - donors
+      description: To delete details of a donor by username
+      parameters:
+        - name: username
+          in: path
+          description: username of the donor whose deatils need to be deleted
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: >-
+                      successfully deleted details of the donor from the
+                      database
+        '400':
+          description: Invalid username supplied
+          content: {}
+        '404':
+          description: User not found
+          content: {}
+components:
+  schemas:
+    donors:
+      type: object
+      properties:
+        donor first name:
+          type: string
+          example: Nagendra
+        donor last name:
+          type: string
+          example: Babu
+        blood group:
+          type: string
+          example: B +ve
+        contact number:
+          type: number
+          example: 9542582763
+        city:
+          type: string
+          example: kakinada
+        state:
+          type: string
+          example: andhra pradesh
+    donors2:
+      type: object
+      properties:
+        donor username:
+          type: string
+          example: PNBnag007
+        donor first name:
+          type: string
+          example: Nagendra
+        donor last name:
+          type: string
+          example: Babu
+        blood group:
+          type: string
+          example: B +ve
+        contact number:
+          type: number
+          example: 9542582763
+        email:
+          type: string
+          example: nagendra@gmail.com
+        address:
+          type: string
+          example: 3-307 opposite d-mart
+        city:
+          type: string
+          example: kakinada
+        state:
+          type: string
+          example: andhra pradesh

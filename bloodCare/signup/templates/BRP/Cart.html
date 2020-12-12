@@ -1,0 +1,239 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>cart</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static "css/Cart.min.css" %}">
+</head>
+<style>
+  .razorpay-payment-button{
+    display: none;
+}
+</style>
+<body><!-- particles.js container --> <div id="particles-js"></div> <!-- stats - count particles -->  <!-- particles.js lib - https://github.com/VincentGarreau/particles.js --> <!-- stats.js lib --> 
+    <!-- Start: bloodcare_nav -->
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top">
+    <div class="container-fluid">
+      <div class="row justify-content-center">
+        <div class="col-xl-10 d-flex align-items-center">
+          <!-- Uncomment below if you prefer to use an image logo -->
+          <a href="index.html" class="logo mr-auto"><img src="{% static "images/logo.png" %}" alt=""></a>
+
+          <nav class="nav-menu d-none d-lg-block">
+            <ul>
+              <li class="active"><a href="#header">Home</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#services">Services</a></li>
+              <li><a href="#portfolio">Portfolio</a></li>
+              <li><a href="#team">Team</a></li>
+              <li><a href="blog.html">Blog</a></li>
+              <li class="drop-down"><a href="">Drop Down</a>
+                <ul>
+                  <li><a href="#">Drop Down 1</a></li>
+                  <li class="drop-down"><a href="#">Deep Drop Down</a>
+                    <ul>
+                      <li><a href="#">Deep Drop Down 1</a></li>
+                      <li><a href="#">Deep Drop Down 2</a></li>
+                      <li><a href="#">Deep Drop Down 3</a></li>
+                      <li><a href="#">Deep Drop Down 4</a></li>
+                      <li><a href="#">Deep Drop Down 5</a></li>
+                    </ul>
+                  </li>
+                  <li><a href="#">Drop Down 2</a></li>
+                  <li><a href="#">Drop Down 3</a></li>
+                  <li><a href="#">Drop Down 4</a></li>
+                </ul>
+              </li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </nav><!-- .nav-menu -->
+
+          <a href="#about" class="get-started-btn scrollto">Get Started</a>
+        </div>
+      </div>
+
+    </div>
+  </header><!-- End Header -->
+
+  <main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <section class="breadcrumbs">
+      <div class="container">
+
+        <ol>
+          <li><a href="index.html">Home</a></li>
+          <li>Order</li>
+        </ol>
+        <h2>Order Form {{ Blood_Bank.name }}</h2>
+
+      </div>
+    </section><!-- End Breadcrumbs -->
+
+    <section class="inner-page">
+      <div class="container" data-aos="fade-up">
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+    <!-- End: bloodcare_nav -->
+
+    <form method="post" action="{% url 'signup:cart' %}">
+      {% csrf_token %}
+    <div class="body-wrapper">
+        <div class="order-wrapper">
+            <div class="top-order">
+                <h3>Order Blood<span class="span_dot">.</span></h3>
+            </div>
+            <div class="bottom-order">
+                <div class="div_inputs">
+                    <!-- Start: options_input --><div id="input_options">
+
+	<select name="blood_type"  class="input">
+	<option value="A+" >A+</option>
+	<option value="A-" >A-</option>
+  <option value="B+" >B+</option>
+	<option value="B-" >B-</option>
+  <option value="AB+">AB+</option>
+	<option value="AB-">AB-</option>
+  <option value="O+">O+</option>
+	<option value="O-">O-</option>
+	</select>
+</div>
+                    <!-- End: options_input -->
+                    <h1 class="heading_quantity">Quantity</h1><input type="number" id="input_number" placeholder="{{units}}" name = "units" >
+                    <h1 class="heading_bloodtype">Blood Group</h1>
+                </div>
+                <div class="div_amounts">
+                    <!-- Start: amount -->
+                    <h1 class="taxable_amount">Amount</h1>
+                    <!-- End: amount -->
+                    <!-- Start: amount_left -->
+                    <h1 id="heading_amount_left">200</h1>
+                    <!-- End: amount_left -->
+                    <!-- Start: rewards -->
+                    <h1 class="heading_rewards">rewards</h1>
+                    <!-- End: rewards -->
+                    <!-- Start: rewards_left -->
+                    <h1 id="heading_rewards_left">-{{user.customer.rewards}}</h1>
+                    <!-- End: rewards_left -->
+                    <!-- Start: total_amount -->
+                    <h1 class="heading_total">Total Amount</h1>
+                    <!-- End: total_amount -->
+                    <!-- Start: total_amount_left -->
+                    <h1 id="heading_total_left">100{{payment.id}}</h1>
+                  
+                    <!-- End: total_amount_left -->
+                    {% if not payment %}
+                </div><button class="btn btn-primary button_pos" type="submit">Order</button></div>
+                    {% endif %}
+                    <input type="hidden" id="amount" name="amount" value="">
+                    <input type="hidden" name="form_type" value="formTwo">
+    <input type="hidden" name="Blood_Bank_name" value= '{{ Blood_Bank.name }}' >
+
+        
+  </form>
+  {% if payment %}
+  <form method="POST" action="{% url 'signup:success' %}">
+    {% csrf_token %}
+    <script src="https://checkout.razorpay.com/v1/checkout.js"
+    data-key="rzp_test_tTJbulofSsAnAO"
+    data-amount="{{amount}}"
+    data-currency="INR"
+    data-button =""
+    data-prefill.contact = "{{user.phone_number}}"
+    data-order_id="{{pid}}"
+    console.log(data-order_id)
+    data-name="Blood Care"
+    data-description="Django and Data Science"
+    data-image="https://example.com/your_logo.jpg"
+    data-prefill.name="PC"
+    data-prefill.email="{{user.email}}">
+    console.log("{{pid}}")
+  </script>
+  
+</div><button class="btn btn-primary button_pos" type="submit">Order</button></div>
+  
+  </form>
+  {% endif %}
+</div>
+</div>
+  <script>
+    document.getElementById("input_number").addEventListener("change", function(){
+	//This input has changed
+   console.log('This Value is', this.value);
+    document.getElementById('heading_amount_left').innerHTML = 100*this.value;
+    document.getElementById('heading_total_left').innerHTML = 100*this.value - parseInt(document.getElementById('heading_rewards_left').innerHTML);
+    document.getElementById("amount").value = 100*this.value - parseInt(document.getElementById('heading_rewards_left').innerHTML);
+
+});
+    var inputValue = document.getElementById("input_number").value;
+    
+
+
+    console.log(inputValue)
+  </script>
+    <div class="gap"></div>
+    <!-- Start: bc_footer --><footer id="footer">
+
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-lg-3 col-md-6 footer-contact">
+            <h3>Presento<span>.</span></h3>
+            <p>
+              A108 Adam Street <br>
+              New York, NY 535022<br>
+              United States <br><br>
+              <strong>Phone:</strong> +1 5589 55488 55<br>
+              <strong>Email:</strong> info@example.com<br>
+            </p>
+          </div>
+
+          <div class="col-lg-2 col-md-6 footer-links">
+            <h4>Useful Links</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Our Services</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-4 col-md-6 footer-newsletter">
+            <h4>Join Our Newsletter</h4>
+            <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
+            <form action="" method="post">
+              <input type="email" name="email"><input type="submit" value="Subscribe">
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <!-- End: bc_footer -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+    <script src="http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="{% static "js/script.min.js" %}"></script>
+</body>
+</html>

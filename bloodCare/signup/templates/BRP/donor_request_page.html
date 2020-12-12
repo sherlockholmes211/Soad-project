@@ -1,0 +1,243 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Untitled</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static "css/blood_request_page.min.css" %}">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
+</head>
+
+<body>
+    <!-- Start: navbar -->
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top">
+    <div class="container-fluid">
+      <div class="row justify-content-center">
+        <div class="col-xl-10 d-flex align-items-center">
+          <!-- Uncomment below if you prefer to use an image logo -->
+          <a href="index.html" class="logo mr-auto"><img src="{% static "images/logo.png" %}" alt=""></a>
+
+          <nav class="nav-menu d-none d-lg-block">
+            <ul>
+              <li class="active"><a href="#header">Home</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#services">Services</a></li>
+              <li><a href="#portfolio">Portfolio</a></li>
+              <li><a href="#team">Team</a></li>
+              <li><a href="blog.html">Blog</a></li>
+              <li class="drop-down"><a href="">Drop Down</a>
+                <ul>
+                  <li><a href="#">Drop Down 1</a></li>
+                  <li class="drop-down"><a href="#">Deep Drop Down</a>
+                    <ul>
+                      <li><a href="#">Deep Drop Down 1</a></li>
+                      <li><a href="#">Deep Drop Down 2</a></li>
+                      <li><a href="#">Deep Drop Down 3</a></li>
+                      <li><a href="#">Deep Drop Down 4</a></li>
+                      <li><a href="#">Deep Drop Down 5</a></li>
+                    </ul>
+                  </li>
+                  <li><a href="#">Drop Down 2</a></li>
+                  <li><a href="#">Drop Down 3</a></li>
+                  <li><a href="#">Drop Down 4</a></li>
+                </ul>
+              </li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </nav><!-- .nav-menu -->
+
+          <a href="#about" class="get-started-btn scrollto">Get Started</a>
+        </div>
+      </div>
+
+    </div>
+  </header><!-- End Header -->
+
+  <main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <section class="breadcrumbs">
+      <div class="container">
+
+        <ol>
+          <li><a href="index.html">Home</a></li>
+          <li>Blood Banks</li>
+        </ol>
+        <h2>Blood Banks</h2>
+
+      </div>
+    </section><!-- End Breadcrumbs -->
+
+    <section class="inner-page">
+      <div class="container" data-aos="fade-up">
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+    <!-- End: navbar -->
+    <form method="POST" action="{% url 'signup:donor_request_page' %}">
+      {% csrf_token %}
+    <div id="body-wrapper">
+        <!-- Start: heading_brp --><div class="brp-header">Stock Availability</div>
+        <!-- End: heading_brp -->
+        <!-- Start: panel-body -->
+        <div class="panel-body">
+            <!-- Start: upper -->
+            <div class="in">
+                <h4 class="stock-head">&nbsp;Search Blood Stock</h4>
+            </div>
+            <!-- End: upper -->
+            <!-- Start: lower -->
+            <div class="row1">
+                <!-- Start: 2_inputs -->
+                <div class="panel-input-wrap"><input type="text" name="state" placeholder="Enter State" class="input" /><input name="city" type="text" placeholder="Enter City" class="input2" /></div>
+                <!-- End: 2_inputs -->
+                <!-- Start: location input --><div class="input-group">
+    <div class="input-group-prepend"></div><input name="location" type="text" placeholder=" Location" class="form-control" />
+    <div class="input-group-append"><button class="btn btn-dark" type="button">Go!</button></div>
+</div>
+                <!-- End: location input -->
+                <!-- Start: options --><div id="input_options">
+ 
+    <select name="blood_type"  class="input">
+    <option value=0 >Select Type</option>
+    <option value="A+" >A+</option>
+    <option value="A-">A-</option>
+    <option value="B+">B+</option>
+    <option value="B-">B-</option>
+    <option value="AB+">AB+</option>
+    <option value="AB-">AB-</option>
+    <option value="O+">O+</option>
+    <option value="O-">O-</option>
+    </select>
+</div>
+                <!-- End: options -->
+            </div>
+            <!-- End: lower -->
+            <div class="search-button"><button class="btn btn-primary submit" type="submit">search</button></div>
+        </div>
+        <!-- End: panel-body -->
+      </form>
+        <div class="gaptotables"></div>
+        <!-- Start: tables -->        <table id="myTable">
+            <thead>
+            <tr>
+                <th width="25%">Donor name</th>
+                <th width="20%">city</th>
+                <th width="30%">Address</th>
+                <th width="15%">Phone</th>
+                <th width="10%">Blood Group</th>
+            </tr>
+            </thead>
+        <tbody id="tableData"></tbody>
+        </table>
+        <!-- End: tables -->
+    </div>
+    <!-- Start: footer --><footer id="footer">
+
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-lg-3 col-md-6 footer-contact">
+            <h3>Presento<span>.</span></h3>
+            <p>
+              A108 Adam Street <br>
+              New York, NY 535022<br>
+              United States <br><br>
+              <strong>Phone:</strong> +1 5589 55488 55<br>
+              <strong>Email:</strong> info@example.com<br>
+            </p>
+          </div>
+
+          <div class="col-lg-2 col-md-6 footer-links">
+            <h4>Useful Links</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Our Services</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-4 col-md-6 footer-newsletter">
+            <h4>Join Our Newsletter</h4>
+            <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
+            <form action="" method="post">
+              <input type="email" name="email"><input type="submit" value="Subscribe">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- End: footer -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.3.js"></script>
+    <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+    <!-- End: footer 
+    <script src="{% static "js/blood_request_page.min.js" %}"></script>-->
+<script>
+    var BloodbankData = JSON.parse('{{ data | safe }}');
+    console.log(BloodbankData)
+    window.onload = (BloodbankData) => {
+         loadTableData(BloodbankData);
+    },
+
+loadTableData(BloodbankData);
+function loadTableData(BloodbankData){
+    const tablebody = document.getElementById("tableData");
+    let dataHtml = '';
+    for(let bank of BloodbankData){
+        console.log(bank.city);
+        dataHtml +=`<tr><td>${bank.name}</td><td>${bank.city}</td><td>${bank.address}</td><td>${bank.phone_number}</td><td>${bank.blood_group}</td></tr>`;
+    }
+    console.log(dataHtml)
+    tablebody.innerHTML = dataHtml;
+}
+$(document).ready(function() {  
+$('#myTable').DataTable( {  
+    initComplete: function () {  
+        this.api().columns().every( function () {  
+            var column = this;  
+            var select = $('<select><option value=""></option></select>')  
+                .appendTo( $(column.footer()).empty() )  
+                .on( 'change', function () {  
+                    var val = $.fn.dataTable.util.escapeRegex(  
+                        $(this).val()  
+                    );  
+            //to select and search from grid  
+                    column  
+                        .search( val ? '^'+val+'$' : '', true, false )  
+                        .draw();  
+                } );  
+
+            column.data().unique().sort().each( function ( d, j ) {  
+                select.append( '<option value="'+d+'">'+d+'</option>' )  
+            } );  
+        } );  
+    }  
+} );  
+} );
+</script>
+</body>
+
+</html>

@@ -1,0 +1,223 @@
+{% extends 'base.html' %}
+{% block body_block %}
+{% load static %}
+
+<head>
+<link rel="stylesheet" href="{% static "css/index.css" %}">
+<link href="https://fonts.googleapis.com/css?family=Montserrat:500" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Titillium+Web:700,900" rel="stylesheet">
+
+<style >
+  label span{
+    color :#222;
+  }
+  a:link {
+    color: #d4af7a; 
+  }
+  a:visited {
+    color: #d4af7a;
+  }
+ a:hover {
+    color: #5bf5c1;
+    text-decoration: none;
+  }
+
+  a:active {
+    color: #d4af7a;
+  }
+  
+  #myBtn {
+  display: none; /* Hidden by default */
+  position: fixed; /* Fixed/sticky position */
+  bottom: 20px; /* Place the button at the bottom of the page */
+  right: 30px; /* Place the button 30px from the right */
+  z-index: 99; /* Make sure it does not overlap */
+  border: none; /* Remove borders */
+  outline: none; /* Remove outline */
+  background-color: red; /* Set a background color */
+  color: white; /* Text color */
+  cursor: pointer; /* Add a mouse pointer on hover */
+  padding: 15px; /* Some padding */
+  border-radius: 25px; /* Rounded corners */
+  font-size: 18px; /* Increase font size */
+
+}
+
+  #errors {
+    font-family: 'Titillium Web', sans-serif;
+    text-transform: uppercase;
+  }
+</style>
+</head>
+
+<section class="breadcrumbs">
+      <div class="container">
+
+        <ol>
+          <li><a href="{% url 'home' %}">Home</a></li>
+          <li>customer Registration</li>
+        </ol>
+        <h3>customer Registration</h3>
+
+      </div>
+    </section><!-- End Breadcrumbs -->
+
+<div class="content">
+
+{% if validated %}           
+    <h2>phone number verification Success!!!</h2>
+{% endif %}
+{% if user_form_errors %}
+<div class="row" style="margin: auto;">
+  <h2 id="errors" class="col-lg-5 col-sm-12" style="text-align:right;margin: auto;"><b>ERRORS</b></h2>
+  <div class="col-lg-1">
+  </div>
+  <div style="margin: auto;" id="errors" class="col-lg-6 col-sm-12">
+    <!-- {% for i in user_form_errors %}
+    <li class="{{ i.tags }}">{{ i }}</li>
+    {% endfor %}
+    {% for i in profile_form_errors %}
+    <li class="{{ i.tags }}">{{ i }}</li>
+    {% endfor %} -->
+    <div {% if user_form_errors.tags %} class="{{ user_form_errors.tags }}"{% endif %}>{{ user_form_errors }}</div>
+    <!--<div {% if profile_form_errors.tags %} class="{{ profile_form_errors.tags }}"{% endif %}>{{ profile_form_errors }}</div>-->
+  </div>
+</div>
+{% endif %}
+<div class="cont col-lg-8 col-md-6 col-sm-6">
+  <div class="form sign-in">
+    <form action="{% url 'signup:login' %}" method = "post" >
+        {% csrf_token %}
+        <h2>Welcome back,</h2>
+        <label  >
+          <span>Username</span>
+          <input type="text" name="username" required/>
+        </label>
+        <label  >
+          <span>Password</span>
+          <input type="password" name="password" required />
+        </label>
+        <p class="forgot-pass"><a href="{% url 'password_reset' %}">Forgot password?</a></p>
+        
+        <button type="submit" name="" class="submit"> Sign In</button>
+      
+    </form>
+  </div>
+  <div class="sub-cont">
+    <div class="img">
+      <div class="img__text m--up">
+        <h2>New here?</h2>
+        <p>Sign up and discover great amount of new opportunities!</p>
+      </div>
+      <div class="img__text m--in">
+        <h2>One of us?</h2>
+        <p>If you already has an account, just sign in. We've missed you!</p>
+      </div>
+      <div class="img__btn">
+        <span class="m--up">Sign Up</span>
+        <span class="m--in">Sign In</span>
+      </div>
+    </div>
+    <div class="form sign-up" id="sign_up" style="overflow: auto; overflow-x: scroll;">
+      {% if registered %}
+        <h1>Thanks for Registering</h1>
+      {% else %}
+      <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+        <h2>Time to feel like home,</h2>
+        <div class="row content" class='span_color'>
+          <label class="col-lg-12 col-sm-6 col-md-6">
+            <span>Intersted as Donor</span>
+            <input type="checkbox" name="is_donor" value="True" />
+          </label>
+          <label class="col-lg-4 col-sm-4" >
+            <span>Username</span>
+            <input type="text" name="username" required/>
+          </label>
+          <label class="col-lg-4 col-sm-4">
+            <span>Fisrt Name</span>
+            <input type="text" name="first_name" required/>
+          </label>
+          <label class="col-lg-4 col-sm-4">
+            <span>Last Name</span>
+            <input type="text" name="last_name" required/>
+          </label>
+          <label class="col-lg-4 col-sm-4" >
+            <span>Password</span>
+            <input type="password" name="password" required/>
+          </label>
+          <label class="col-lg-4 col-sm-4">
+            <span>Verify Password</span>
+            <input type="password" name="verify_password" required/>
+          </label>
+          <label class="col-lg-4 col-sm-4">
+            <span>Email</span>
+            <input type="email" name="email" required/>
+          </label>
+          <label class="col-lg-4 col-sm-4">
+            <span>Phone Number</span>
+            <input type="text" name="phone_number" />
+          </label>
+          <!--<label class="col-lg-4 col-sm-4" >
+            <span>blood_group</span>
+            <input type="text" name="blood_group" required/>
+          </label>-->
+          
+          <label class="col-lg-4 col-sm-4" >
+            <span>Age</span>
+            <input type="number" name="Age" required/>
+          </label>
+          <label class="col-lg-4 col-sm-4" >
+            <span>Blood group</span>
+              
+              
+              <div class="form-group">
+  <select class="form-control" name="blood_group" >
+    <option value=0 >Select Type</option>
+  <option value="A+" >A+</option>
+  <option value="A-">A-</option>
+  <option value="B+">B+</option>
+  <option value="B-">B-</option>
+  <option value="AB+">AB+</option>
+  <option value="AB-">AB-</option>
+  <option value="O+">O+</option>
+  <option value="O-">O-</option>
+  </select>
+</div>
+      
+          </label>
+          <label class="col-lg-4 col-sm-4" >
+            <span>city</span>
+            <input type="text" name="city" required/>
+          </label>
+          <label class="col-lg-4 col-sm-4" >
+            <span>state</span>
+            <input type="text" name="state" required/>
+          </label>
+          <label class="col-lg-4 col-sm-4" >
+            <span>address</span>
+            <input type="text" name="address" required/>
+          </label>
+
+          
+          <!--<label class="col-lg-12 col-md-12">
+            <script src='https://www.google.com/recaptcha/api.js'></script>
+            <div class="g-recaptcha" data-sitekey="6LfZGbIZAAAAAM3T0PCvUWAmdxoVnsxVtjEk4t4x" style=""></div>
+          </label>-->
+          <label class="col-lg-6 col-sm-6" >
+          <button type="submit" class="submit" name="register">Sign Up </button>
+        </label>
+      </div>
+    </form>
+    {% endif %}
+    </div>
+  </div>
+</div>
+</div>
+ <script type="text/javascript">
+  document.querySelector('.img__btn').addEventListener('click', function() {
+  document.querySelector('.cont').classList.toggle('s--signup');
+});
+ </script>
+
+{% endblock %}
