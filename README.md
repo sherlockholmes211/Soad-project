@@ -5,13 +5,13 @@ Despite advances in technology, today's blood bank systems are running in manual
 When a patient requires a rare blood group, if the hospital is running out of stock then family members and relatives are  trying  with social media for blood donors which is useless.
 
 Health domain is pushing in all directions for providing awareness in advantages of the blood donation by conducting various camps, but still many don’t consider it as their responsibility, how can be these situations overcomed?
-# Home page
+## Home page
 ![](gifs/home.gif)
 
-# login page
+## login page
 ![](gifs/login.gif)
 
-# We have provided a Service where the user can order blood from a Blood Bank
+## We have provided a Service where the user can order blood from a Blood Bank
 ![](gifs/order.gif)
 
 ## Exposing services
@@ -20,7 +20,7 @@ NEAR BY BLOOD DONORS API: DATABASE OF THE NEARBY DONORS IS PROVIDED TO THE REQUE
 NEAR BY BLOOD BANKS API:   DETAILS OF THE NEARBY BLOOD BANKS  ARE PROVIDED ON REQUEST
 
 HOSPITALS  CAN CHECK THE AVAILABILITY OF THE REQUIRED BLOOD GROUP IN THE NEAR BY BLOOD BANKS.
-# Consuming services
+## Consuming services
 RAZORPAY PAYMENT  SERVICE
 
 OTP SMS  SERVICE FOR  PHONE  NUMBER  AUTHENTICATION  (2 FACTOR SMS SERVICE PROVIDER)
